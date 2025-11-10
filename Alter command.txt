@@ -1,0 +1,18 @@
+USE DATABASE_NAME; -- To activate database
+
+SHOW TABLES; -- to view all the tables in the database
+
+SELECT * FROM table_name; -- to view all the columns and data of the table
+
+DESCRIBE TABLE_NAME; -- to view columns and their datatypes
+
+-- ALTER STATEMENT (DDL COMMAND)
+ALTER TABLE TABLE_NAME RENAME USER_NAME; -- to rename table name from TABLE_NAME to USER_NAME 
+
+ALTER TABLE USER_NAME ADD COLUMN_NAME VARCHAR(100); #DATATYPE -- to add a column in the table
+
+ALTER TABLE USER_NAME CHANGE COLUMN OLD_COLUMN_NAME NEW_COLUMN_NAME DATATYPE; -- to change name of the column
+
+ALTER TABLE USER_NAME MODIFY COLUMN_NAME NEW_DATA_TYPE; -- to change the datatype of a column
+
+ALTER TABLE USER_NAME DROP COLUMN COLUMN_NAME; -- to drop a column from a table

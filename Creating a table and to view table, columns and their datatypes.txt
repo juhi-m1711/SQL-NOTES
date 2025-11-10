@@ -1,0 +1,13 @@
+USE DATABASE_NAME; -- To activate a database
+
+CREATE TABLE table_name (
+	column1 datatype[parameters],
+    	column2 datatype[parameters],
+    	column3 datatype[parameters],...); -- To create a table under a database (DATABASE_NAME) and add columns and their datatypes
+
+SHOW TABLES; -- To view all the tables in the database
+
+SELECT * FROM table_name; -- to view all the columns and data in the table 
+
+DESCRIBE table_name; -- to view columns and their datatypes
+SHOW COLUMNS FROM table_name; -- to view columns and their datatypes

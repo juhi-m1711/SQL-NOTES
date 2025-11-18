@@ -1,0 +1,38 @@
+use practice_data1;
+show tables;
+select * from employees_info;
+
+-- ORDER BY CLAUSE : To Sort data in the result set in ascending or descending order
+-- Syntax
+-- select * from table_name order by column_name desc/asc; 
+
+select * from employees_info order by salary asc; -- Order data of a table in ascending order
+
+select * from employees_info order by salary desc; -- Order data of a table in descending order
+
+select * from employees_info order by salary desc limit 5; -- Order data in ascending/descending order and shows top 5
+
+select id, name, salary, department from employees_info where salary > 60000 order by salary desc limit 5; -- Order data in ascending/ descending order with a condition
+
+-- GROUP BY : To group rows that have the same values
+-- Syntax
+-- select column_name1 from table_name group by column_name1;
+
+select gender from employees_info group by gender;
+
+select department from employees_info group by department;
+
+select department, count(department) from employees_info group by department;
+
+select department, count(department) from employees_info group by department order by department;
+
+select department, count(department) as Total from employees_info group by department order by Total;
+
+-- HAVING CLAUSE : To apply condition after grouping
+-- Syntax
+-- SELECT column1, aggregate_function (column2) FROM table_name GROUP BY column1 HAVING aggregate_function(column2) > condition;
+
+select department, count(department) from employees_info group by department having count(department) > 10;
+
+select department, count(department) as Result from employees_info group by department having Result > 10;
+

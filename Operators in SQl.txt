@@ -1,0 +1,21 @@
+-- ARITHMETIC OPERATORS
+select 5 + 3 ; -- Adds and displays the values
+select 5 - 3 ; -- Subtracts 
+select 5 * 3 ; -- Multiplies
+select 5 / 3 ; -- Divides and displays QUOTIENT  as a result
+select 5 % 3 ; -- Divides and displays REMAINDER  as a result
+
+-- LOGICAL OPERATORS
+-- Gives result as Boolean number 1 for TRUE, and 0 for FALSE
+select 5>0 or 5=4; -- returns true if either of the conditions is true
+select 5>0 and 5=4; -- return true only if all the conditions are true
+select not 5=4; -- return true if given condition is false, and vice varsa
+
+-- COMPARISON/ RELATIONAL OPERATORS
+-- Gives result as Boolean number 1 for TRUE, and 0 for FALSE
+select 4=4; -- Return TRUE if it is equal to
+select 8>7; -- Return TRUE if Greater than
+select 8<4; -- Return TRUE if Less than
+select 9>=4; -- Return TRUE if Greater than or equal to
+select 3<=4; -- Return TRUE if Less than or equal to
+select 8!=4; -- Return TRUE if not equal to

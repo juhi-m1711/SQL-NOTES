@@ -1,0 +1,38 @@
+use foreign_key_data;
+show tables;
+describe ecommerce;
+select * from ecommerce; -- Displays all the data of a table in a window.
+select * from ecommerce limit 2; -- Displays top 2 rows of a table.
+select * from ecommerce limit 2 offset 3; -- Displays top 2 rows, and removes 3 rows from above.
+select id, city from ecommerce; -- Displays particular columns from a table.
+select distinct city from ecommerce; -- Displays unique values of a column.
+
+-- LOGICAL OPERATORS
+select * from ecommerce where quantity = 9 and discount = 0; -- checks the conditions, fetches information only when both conditions are true.
+
+select * from ecommerce where quantity = 9 or discount >= 0; -- checks the conditions, fetches information when either of the conditions is true.
+
+select * from ecommerce where not quantity = 7; -- checks the condition, fetch information where quantity != 7.
+
+-- SPECIAL OPERATORS
+
+select * from ecommerce where id in (1,2,2,4,5,6); -- Fetches all rows where the column matches any value from the given list.
+
+select * from ecommerce where id not in (1,2,3,4,5,6); -- Fetches all rows where the column value is NOT in the given list.
+
+select * from ecommerce where sales between 1000 and 4000; -- Fetches rows where the column value lies between two values (inclusive).
+
+select * from ecommerce where quantity is null; -- Fetches all rows where the column has no value
+
+select * from ecommerce where quantity is not null; -- Fetches all rows where the column has a value
+
+-- LIKE KEYWORD
+select * from ecommerce where city like '%A'; -- ends with a
+select * from ecommerce where city like 'A%'; -- starts with a
+select * from ecommerce where city like '%AM%'; -- contains “AM” anywhere
+select * from ecommerce where city like 'A%M'; -- starts with A and ends with M.
+select * from ecommerce where city like '_A%'; -- a in the second position
+select * from ecommerce where city like '__A%'; -- a in the third position
+select * from ecommerce where city like '_as'; -- a in the second position, s in the third position, no extra characters after s.
+
+

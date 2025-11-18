@@ -1,0 +1,12 @@
+use foreign_key_data;
+select * from ecommerce;
+
+select count(id) from ecommerce; -- Counts the number of rows.
+
+select sum(sales) from ecommerce; -- Calculates the total sum of a numeric column.
+
+select avg(sales) from ecommerce; -- Computes the average of a numeric column.
+
+select min(sales) from ecommerce; -- Finds the minimum value in a column.
+
+select max(sales) from ecommerce; -- Finds the maximum value in a column.

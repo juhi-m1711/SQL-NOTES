@@ -1,0 +1,23 @@
+CREATE DATABASE SCHOOL;
+
+USE SCHOOL;
+
+CREATE TABLE STUDENTS (
+	STUDENT_ID INT PRIMARY KEY, -- PRIMARY KEY: Uniquely identifies each student
+    AADHAR_CARD_NUMBER INT UNIQUE,  -- UNIQUE: Ensures no two students can have the same Aadhar number
+    STUDENT_NAME VARCHAR(100) NOT NULL, -- NOT NULL: Student name cannot be left empty
+    AGE INT CHECK (AGE <=16) -- CHECK: Age must be 16 or below (condition must be true)
+    );
+    
+CREATE TABLE ASSIGNMENTS (
+	ASSIGNMENT_ID INT PRIMARY KEY, -- PRIMARY KEY: Uniquely identifies each assignment
+    STUDENT_ID INT, -- Foreign key column to link assignment to student
+    
+    -- FOREIGN KEY: Ensures STUDENT_ID exists in STUDENTS table (maintains referential integrity)
+    FOREIGN KEY (STUDENT_ID) REFERENCES STUDENTS (STUDENT_ID),
+    ASSIGNMENT_NAME VARCHAR(100) DEFAULT 'SCHOOL PROJECT' -- DEFAULT: If no assignment name is given, use 'SCHOOL PROJECT'
+	);
+    
+
+    
+ 

@@ -1,0 +1,15 @@
+use mycompany;
+show tables;
+-- Create table
+create table users (user_id int, user_name varchar(100), city varchar(100)); 
+-- Insert Data into table
+insert into users values (1, 'Aryan', 'Nagpur'); -- To insert a single row in a table
+
+insert into users (user_id, user_name, city) values
+	(2, 'Amay', 'Delhi'),
+    (3, 'Babita', 'Mumbai'),
+    (4, 'Nisha', 'Delhi'),
+    (5, 'Zubair', 'Delhi'),
+    (6, 'Khushi', 'Delhi'); -- To insert multiple rows in a table
+    
+select * from users;

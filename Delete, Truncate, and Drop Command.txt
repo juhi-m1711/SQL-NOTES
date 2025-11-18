@@ -1,0 +1,18 @@
+use mycompany;
+show tables;
+select * from users;
+
+set sql_safe_updates= 0;
+
+-- DELETE COMMAND : Deletes a particular row of a table according to the condition given. It is a DML Command.
+
+delete from users where user_id = 1 ;
+
+-- TRUNCATE COMMAND: Deletes entire data of a table without deleting the structure , i.e. it keeps the column of a table intact. 
+
+truncate table users;
+
+-- DROP COMMAND : Deletes entire data, and also deletes the structure of a table.
+
+DROP TABLE users;
+

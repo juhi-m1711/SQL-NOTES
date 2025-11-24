@@ -1,0 +1,114 @@
+-- 1) AGGREGATE FUNCTION AS WINDOW FUNCTION
+-- Perform aggregate calculations but keep every row.
+
+
+select *, 
+sum(salary) 
+over(partition by department order by department) as Total_Salary 
+from aggregate_function;
+
+select *, 
+max(salary) 
+over(partition by department order by department) as Maximum_Salary 
+from aggregate_function;
+
+select *, 
+min(salary) 
+over(partition by department order by department) as Minimum_Salary 
+from aggregate_function;
+
+select *, 
+count(department) 
+over(partition by department order by department) as total_employees 
+from aggregate_function;
+
+select *, 
+avg(salary) 
+over(partition by department order by department) as Average_Salary 
+from aggregate_function;
+
+
+
+-- 2) RANKING FUNCTION
+-- Give a rank or number to each row.
+
+
+-- Rank: gives rank with gaps
+select *, 
+rank() 
+over(order by salary) as `RANK` 
+from ranking_function;
+
+-- Dense Rank: rank without gaps
+select *, 
+dense_rank() 
+over(order by salary) as `RANK` 
+from ranking_function;
+
+-- Row Number: gives a unique row number
+select *, 
+row_number() 
+over(order by salary) as `RANK` 
+from ranking_function;
+
+-- NTILE: NTILE divides sorted rows into equal groups and assigns a group number.
+select *,
+ntile(5) over(order by salary) as `GROUP_RANK` 
+from ranking_function;
+
+
+
+
+-- 3) ANALYTIC FUNCTION 
+-- Used for advanced calculations like running totals or moving averages.
+
+
+-- Percent Rank = Position Number -1 / Number of Rows -1
+
+select *, 
+percent_rank() 
+over(order by sales) as Percent_Ranks 
+from analytic_function;
+
+-- Cumulative Distribution = Position number / Number of Rows
+
+select *, 
+cume_dist() 
+over(order by sales) as Cumulative_Distribution 
+from analytic_function;
+
+
+
+
+-- 4) VALUE FUNCTION
+-- Fetch a specific value from another row.
+
+-- Lag Function: previous row
+select *, 
+lag(salary) 
+over(order by salary) as previos_salary 
+from value_function;		
+
+-- Lead Function: next row
+select *, 
+lead(salary) 
+over(order by salary) as next_salary 
+from value_function;
+
+-- First value
+select *, 
+first_value(salary) 
+over(order by salary) as lowest_salary 
+from value_function;
+
+-- Last value
+select *, 
+last_value(salary) 
+over(order by salary rows between unbounded preceding and unbounded following) as highest_salary 
+from value_function;
+
+-- Nth value
+select *,
+nth_value(salary, 2)
+over(order by salary rows between unbounded preceding and unbounded following) as second_lowest_salary
+from value_function;

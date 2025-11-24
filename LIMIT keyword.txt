@@ -1,0 +1,5 @@
+use practice_data1;
+select * from employees_info; -- Returns all the rows of a table
+select * from employees_info limit 5; -- Returns top 5 rows of a table
+select * from employees_info limit 5 offset 3; -- Returns top 5 rows of a table after skipping the first 3 rows
+select * from employees_info limit 5, 3;-- Returns top 3 rows of a table after skipping the first 5 rows

@@ -1,0 +1,95 @@
+create database joins;
+show databases;
+use joins;
+
+create table user1 (
+	id int primary key,
+    name varchar(100));
+    
+insert into user1 (id, name) values 
+	(1, 'Amar'),
+    (2, 'Aryan'),
+    (3, 'Amit'),
+    (9, 'Jay');
+
+create table user2 (
+	id int,
+    skills varchar(100)
+    );
+
+insert into user2 (id, skills) values 
+	(1, 'SQL'),
+    (2, 'Python'),
+    (3, 'React'),
+    (4, 'PowerBI');
+    
+-- INNER JOIN : Returns only the matching rows from both tables.
+select * from user1
+	inner join user2
+    on user1.id = user2.id;
+
+-- OUTER JOIN 
+-- Left Join : Returns all rows from the left table, and matching rows from the right table. Non-matching rows from the right side become NULL.
+select * from user1 
+	left join user2 on
+    user1.id = user2.id;
+
+-- Left Join excluding Inner Join : A Left Join excluding Inner Join returns only the rows from the left table that do NOT have a match in the right table.
+select * from user1
+	left join user2 on
+    user1.id = user2.id
+    where user2.id is null;
+    
+-- Right Join : Returns all rows from the right table, and matching rows from the left. Non-matching rows from the left side become NULL.
+select * from user1 
+	right join user2 on
+    user1.id = user2.id;
+    
+-- Right Join excluding Inner Join : A Right Join excluding Inner Join returns only the rows from the right table that do NOT have a match in the left table.
+select * from user1 
+	right join user2 on
+    user1.id = user2.id 
+    where user1.id is null;
+
+-- Full Join : Returns all rows from both tables, with NULLs where matches don’t exist.
+select * from user1
+	left join user2 on
+    user1.id = user2.id
+    union
+select * from user2
+	right join user1 on 
+    user1.id = user2.id;
+
+-- Full Join excluding Inner Join : A Full Join excluding Inner Join returns only the non-matching rows from both tables.
+-- All rows that match in both tables (inner join rows) are removed.
+select * from user1
+	left join user2 on
+    user1.id = user2.id
+    union
+select * from user2
+	right join user1 on 
+    user1.id = user2.id
+where user1.id is null or user2.id is null;
+    
+-- CROSS JOIN : A CROSS JOIN returns the Cartesian product of two tables. This means every row of Table A is combined with every row of Table B.
+select * from user1 
+	cross join user2 order by name asc;
+
+create table self (id int, name varchar(100), product_id int, product_name varchar(100));
+
+insert into self (id, name, product_id, product_name) values
+	(1, 'Amar', 1, 'Hair Dryer'),
+    (2, 'Aryan', 2, 'Washing Machine'),
+    (3, 'Jay', 3, 'TV'),
+    (4, 'Vasant', 9, 'Fridge');
+    
+insert into self (id, name, product_id, product_name) values
+	(5, 'Varsha', 4, 'AC'),
+    (6, 'Sharad', 2, 'Washing Machine');
+
+    
+-- SELF JOIN : A SELF JOIN in SQL is a join where a table is joined with itself to retrieve related data from the same table. 
+select * from self as a join self as b on a.id = b.product_id;
+
+-- NATURAL JOIN : A NATURAL JOIN in SQL combines rows from two tables based on columns with the same name, data types, and matching values. 
+select * from user1 natural join user2 order by name asc;

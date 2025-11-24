@@ -1,0 +1,10 @@
+use pratice_data1;
+
+-- IF STATEMENT
+select name, salary, if(salary < 80000, 'Promoted', 'Not Promoted') as Promotion_Status from employees_info; 
+
+-- Shows only Promoted employees
+select name, salary, if(salary < 80000, 'Promoted', 'Not Promoted') as Promotion_Status from employees_info where salary < 80000;
+
+-- Shows only Not Promoted employees
+select name, salary, if(salary < 80000, 'Promoted', 'Not Promoted') as Promotion_Status from employees_info where salary > 80000;

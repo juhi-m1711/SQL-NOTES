@@ -1,0 +1,50 @@
+use practice_data1;
+-- VIEW COMMAND: A view is a virtual table in SQL. It does not store data but provides a simplified representation of one or more tables. 
+/* Syntax: CREATE VIEW view_name AS 
+		SELECT column_name
+		FROM table_name
+		WHERE condition ; */
+
+-- View the Data 
+select * from experienced_employees ; 
+
+-- Show views
+use joins;
+show full tables where table_type = 'VIEW';
+
+use practice_data1;
+show full tables where table_type = 'VIEW' ;
+
+-- Update a view
+create or replace view management_employees as
+	select employee_name, experience, salary from employees_info where experience between 5 and 10 ;
+
+-- DROP views
+drop view view_name;
+
+
+-- PRACTICE QUERIES
+-- 1. How do you create a view named IT_Employees that selects the Name and Salary of all male employees from the Employee table?
+ create  view it_employees as 
+	select employee_
+    name, salary from employees_info where gender = 'male';
+    
+/* 2. How do you create a view named Experienced_Employees that selects the 
+ Name and Experience of all employees with more than 5 years of experience from the Employee table? */
+create view experienced_employees as
+	select employee_name, experience from employees_info where experience > 5 ;
+    
+/* 3. How do you create a view named Management_Employees that selects the Name, Experience, and Salary 
+ of employees who have between 5 and 10 years of experience from the Employee table? */
+create view management_employees as
+	select employee_name, experience, salary from employees_info where experience between 5 and 10 ;
+
+/* 4. How do you create a view named skills that selects the Id and Name of database by 
+INNER joining the table1 and table2 tables on their respective id and id2 columns? IMP */
+use joins;
+
+create view skills as
+	select user1.id as user_id , user1.name from user1
+    inner join user2 
+    on user1.id = user2.id ;
+    

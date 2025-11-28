@@ -1,0 +1,213 @@
+📌 DATE Functions (One-Line Explanations)
+1. CURDATE() – Returns today’s current date.
+2. CURRENT_DATE() – Same as CURDATE(), gives today’s date.
+3. NOW() – Returns the current date and time together.
+4. SYSDATE() – Returns the exact date-time at execution (can differ from NOW()).
+5. DATE() – Extracts only the date part from a datetime value.
+6. YEAR(date) – Extracts the year from a date.
+7. MONTH(date) – Extracts the month number (1–12).
+8. DAY(date) – Extracts the day of the month.
+9. MONTHNAME(date) – Returns the full month name (e.g., January).
+10. DAYNAME(date) – Returns the weekday name (e.g., Monday).
+11. EXTRACT(unit FROM date) – Pulls a specific part (year/month/day) from a date.
+12. DATEDIFF(date1, date2) – Returns the number of days between two dates.
+13. DATE_ADD(date, INTERVAL x unit) – Adds a time interval to a date.
+14. DATE_SUB(date, INTERVAL x unit) – Subtracts a time interval from a date.
+15. LAST_DAY(date) – Returns the last day of the month for that date.
+16. MAKEDATE(year, day_of_year) – Creates a date from year + day number.
+17. STR_TO_DATE(string, format) – Converts a string into a date using a format.
+18. DATE_FORMAT(date, format) – Formats a date into a custom string.
+📌 TIME Functions (One-Line Explanations)
+19. CURTIME() – Returns the current system time.
+20. CURRENT_TIME() – Same as CURTIME(), gives current time.
+21. TIME(datetime) – Extracts the time portion from a datetime value.
+22. HOUR(time) – Extracts the hour (0–23) from a time value.
+23. MINUTE(time) – Extracts the minute part.
+24. SECOND(time) – Extracts the seconds part.
+25. EXTRACT(unit FROM time) – Extracts hour, minute, or second from a time.
+26. TIMEDIFF(time1, time2) – Returns the difference between two time values.
+27. TIME_TO_SEC(time) – Converts time into total seconds.
+28. SEC_TO_TIME(seconds) – Converts seconds back into HH:MM:SS format.
+29. MAKETIME(hour, minute, second) – Creates a time value.
+30. ADDTIME(time, interval) – Adds time to a time value.
+31. SUBTIME(time, interval) – Subtracts time from a time value.
+📌 DATETIME Functions (One-Line Explanations)
+32. TIMESTAMP() – Returns the current timestamp.
+33. UNIX_TIMESTAMP() – Returns seconds since UNIX epoch (1970).
+34. FROM_UNIXTIME(seconds) – Converts UNIX seconds into a datetime.
+35. UTC_TIMESTAMP() – Returns the current date–time in UTC.
+
+
+create database month_date_day;
+use month_date_day;
+create table orders (
+    order_id INT PRIMARY KEY,
+    customer_name VARCHAR(50),
+    order_date DATE,
+    delivery_date DATE,
+    amount DECIMAL(10,2)
+);
+
+INSERT INTO orders (order_id, customer_name, order_date, delivery_date, amount) VALUES
+(1, 'Aarav', '2025-01-15', '2025-01-20', 1200.50),
+(2, 'Riya', '2025-02-10', '2025-02-15', 3400.00),
+(3, 'Karan', '2025-03-05', '2025-03-10', 999.99),
+(4, 'Meera', '2024-12-25', '2024-12-31', 5450.75),
+(5, 'Kabir', '2024-11-11', '2024-11-18', 1750.00);
+
+alter table orders 
+add column order_time time;
+
+select * from orders;
+
+update orders set order_time = '10:15:30' where order_id = 1;
+update orders set order_time = '14:45:10' where order_id = 2;
+update orders set order_time = '09:05:55' where order_id = 3;
+update orders set order_time = '18:20:05' where order_id = 4;
+update orders set order_time = '22:59:59' where order_id = 5;
+
+-- Extract month of each order using month()
+select * , month(order_date) as order_month 
+from orders;
+
+-- Extract the date using day()
+select *, day(order_date) as order_day 
+from orders;
+
+-- Extract the year using year()
+select *, year(order_date) as order_year 
+from orders;
+
+-- Extract the hour of the time using hour()
+select *, hour(order_time) as order_hour 
+from orders;
+
+-- Extract the minute of the time using minute()
+select *, minute(order_time) as order_minute 
+from orders;
+
+-- Extract the second of the time using second()
+select *, second(order_time) as order_second
+from orders;
+
+-- EXTRACT 
+-- Extract the month using extract()
+select *, extract(month from order_date) as order_month 
+from orders;
+
+select extract(month from '2025-05-08') as month;
+
+-- Extract the day using extract()
+select *, extract(day from delivery_date) as delivery_day
+from orders;
+
+select extract(day from '2025-11-17') as day;
+
+-- Extract the year using extract()
+select *, extract(year from delivery_date) as delivery_year
+from orders;
+
+select extract(year from '2025-11-10') as year;
+
+-- Extract hours using extract()
+select *, extract(hour from order_time) as order_hour 
+from orders;
+
+select extract(hour from '23:22:00') as hour;
+
+-- Extract minute using extract()
+select *, extract(minute from order_time) as order_minute 
+from orders;
+
+-- Extract seconds using extract()
+select *, extract(second from order_time) as order_second 
+from orders;
+
+-- Practice Queries
+-- 1. Find all orders placed in February
+select * 
+from orders
+where month(order_date) = 2;
+
+-- 2. Find all orders placed in 2024
+select *
+from orders
+where year(order_date) = 2024;
+
+-- 3. Calculate number of days between order and delivery
+select *,
+datediff(delivery_date, order_date) as days_to_deliver
+from orders;
+
+-- 4. Find orders placed after 6 PM
+select *
+from orders
+where hour(order_time) > 18 ;
+
+-- 5. Combine date and time into a DATETIME
+select *,
+concat(order_date, ' ', order_time) as order_datetime
+from orders;
+
+-- 6. Sort by time (earliest to latest)
+select * 
+from orders
+order by order_time asc;
+
+-- 7. Display orders where delivery took more than 5 days.
+select *,
+datediff(delivery_date, order_date) as days_to_deliver
+from orders
+where datediff(delivery_date, order_date) > 5;
+
+-- 8. Extract the day name (Monday, Tuesday, etc.) from the order date.
+select *,
+dayname(order_date) as order_weekday
+from orders;
+
+-- 9. Extract the month name (January, February, etc.).
+select *,
+monthname(order_date) as order_monthname
+from orders;
+
+-- 10. Add 7 days to each order date.
+select *,
+date_add(order_date, interval 7 day) as new_date
+from orders;
+
+-- 11. Subtract 3 days from delivery date.
+select *,
+date_sub(delivery_date, interval 3 day) as updated_delivery_date
+from orders ;
+
+-- 12. Find orders that will be delivered within the next 7 days from the order date.
+select * 
+from orders
+where delivery_date <= date_add(order_date, interval 7 day); 
+
+-- 13. Sort orders by delivery date (latest → earliest).
+select *
+from orders
+order by order_date desc;
+
+-- 14. Format the date as DD-MM-YYYY.
+select *,
+date_format(order_date, '%d-%m-%Y') as formatted_date
+from orders;
+
+insert into orders values (6, 'Juhi', '2025-11-17', '2025-11-28', 1200, '11:15:30');
+
+-- 15. Find orders placed in the last 30 days.
+select *
+from orders
+where order_date >= date_sub(curdate(), interval 30 day);
+
+-- 16. Find the average time (in seconds) past midnight when customers place orders.
+select
+avg(time_to_sec(order_time)) as avg_seconds_past_midnight
+from orders;
+
+-- 17. Group orders by year and count how many orders were placed each year.
+select year(order_date) as order_year, count(*) as total_orders
+from orders
+group by year(order_date);

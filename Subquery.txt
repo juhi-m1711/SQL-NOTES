@@ -1,0 +1,41 @@
+use practice_data1;
+-- SUBQUERY 
+-- Single Row SUBQUERY
+-- 1) Get the name of each employee and their salary along with the highest salary in the company using subquery: 
+select employee_name, salary, (select max(salary) from employees_info) as Highest_salary from employees_info ;
+
+-- 2) Find all employees name who have a salary greater than the average salary of all employees using subquery:
+select employee_name, salary from employees_info where salary > (select avg(salary) from employees_info);
+
+-- 3) Find all employees name who have less 2 years of experience compared to Ankit using subquery:
+select * from employees_info where employee_name= 'juhi';
+select employee_name, experience from employees_info where experience < (select experience from employees_info where employee_name= 'Ankit')-1;
+
+-- 4) Find names of employees who work in the same department as Yash.
+select employee_name, department from employees_info where department = (select department from employees_info where employee_name= 'Yash');
+
+-- 5) Departments Paying Above Company Average Salary -- List departments whose average salary is above the company’s average.
+select department from employees_info group by department having avg(salary) > (select avg(salary) from employees_info);
+
+-- 6) Employee(s) with the Second Highest Salary IQ imp -- Find the second highest salary in the company using a subquery.
+select employee_name, salary from employees_info where salary = (select max(salary) from employees_info where salary < (select max(salary) from employees_info)); 
+
+-- 7) Find the department with the highest average salary? -- Insight gained: Identify which department pays the most on average.
+select department from employees_info group by department having avg(salary) = (select max(avg_salary) from 
+	(select department, avg(salary) as avg_salary from employees_info group by department) as dept_avg);
+
+-- 8) Find employees who belong to large departments (more than 3 employees). 
+select employee_name, department from employees_info where department in (select department from employees_info group by department having count(*) > 3);
+
+-- MULTI-ROW SUBQUERY
+-- 1) Find employees names, salaries, the highest salary, and the min salary using a Multi-row query.
+select employee_name, salary from employees_info 
+	where salary in (
+			select max(salary) from employees_info 
+            union
+            select min(salary) from employees_info
+            );
+-- 2) Retrieve the name, salary, highest salary, and average salary for the employee with id = 5 using a Multi-row query.
+
+
+

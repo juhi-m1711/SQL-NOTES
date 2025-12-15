@@ -1,0 +1,27 @@
+use practice_data1;
+select * from employees_info;
+
+-- DCL COMMANDS -- 
+-- Displays the MySQL account you're currently connected as.
+select current_user();
+
+-- Shows all privileges granted to the current MySQL user.
+show grants for current_user();
+
+-- Grants read-only (SELECT) access to all tables in largedata1 for user Nisha.
+grant select on practice_data1.* to 'Nisha'@'%' ;
+
+-- Reloads the privileges from the grant tables to apply changes immediately.
+flush privileges ;
+
+-- Displays all privileges currently assigned to user Nisha
+show grants for  'Nisha'@'%' ;
+
+-- Removes the SELECT privilege from Nisha on all tables in largedata1.
+revoke select on practice_data1.* from 'Nisha'@'%';
+
+-- Applies the revocation by reloading privileges.
+flush privileges;
+
+-- Confirms that the SELECT privilege has been successfully removed.
+show grants for 'Nisha'@'%';

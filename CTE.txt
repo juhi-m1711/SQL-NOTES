@@ -1,0 +1,136 @@
+use practice_data1;
+
+-- CTE PRACTICE QUESTIONS
+
+-- 1. Select employee names and departments using cte
+with emp_name as (
+	select employee_name, department
+    from employees_info
+    )
+select * from emp_name ;
+
+-- 2. List employees who are younger than 30
+with young_employees as (
+	select * from employees_info 
+    where age <30
+    )
+select * from young_employees ;
+
+-- 3. Find all female employees
+with female_employees as (
+	select * from employees_info 
+    where gender= 'Female'
+    )
+select * from female_employees;
+
+-- 4. show employees from data analysis department
+with Data_analysis_team as(
+	select * from employees_info 
+    where department = 'Data Analysis'
+    )
+select * from Data_analysis_team ;
+
+-- 5. List emp with more than 5 years of experience
+with experienced_employees as (
+	select * from employees_info 
+    where experience > 5
+    )
+select * from experienced_employees;
+
+-- 6. Calculate avg salary by department
+with dept_avg_salary as (
+	select department, avg(salary) as average_salary 
+    from employees_info 
+    group by department
+    )
+select * from dept_avg_salary ;
+
+-- 7. get total number of employees by gender
+with gender_count  as (
+	select gender, count(*)
+    from employees_info 
+    group by gender
+    )
+select * from gender_count ;
+
+-- 8. Rank employees by salary within each department
+with rank_emp as(
+	select *,
+    rank() over(partition by department order by salary desc) as emp_rank
+    from employees_info
+    )
+select * from rank_emp;
+
+-- 9. List employees earning more than average salary 
+with high_earners as(	
+	select * 
+    from employees_info 
+    where salary > (select avg(salary) from employees_info)
+    )
+select * from high_earners;
+
+-- 10. list department having more than one female employee
+
+with female_dept_count as(
+	select department, count(*) as female_emp
+    from employees_info
+    where gender="Female"
+    group by department
+    having count(*) >1
+    )
+select * from female_dept_count ;
+
+-- 11. Multiple CTE
+with junior_emp as (
+	select id, employee_name, department, experience 
+    from employees_info 
+    where experience <=3
+    ),
+senior_emp as (
+	select id, employee_name, department, experience 
+    from employees_info 
+    where experience >3
+    )
+select * from 
+junior_emp join
+senior_emp on 
+junior_emp.department = senior_emp.department;
+
+-- 12. List all employees who earn more than 60,000.
+with high_emp_salary as (
+	select * from employees_info 
+    where salary >60000
+    )
+select * from high_emp_salary;
+
+-- 13. Find the average salary grouped by gender.
+with avg_salary_by_gender as(
+	select gender, avg(salary) as Average_Salary 
+    from employees_info
+    group by gender
+    )
+select * from avg_salary_by_gender ;
+
+-- 14. Retrieve all employees who have more than 5 years of experience and earn more than 50,000.
+with high_exp_and_salary as(
+	select * 
+    from employees_info 
+    where experience > 5 and salary > 50000
+    )
+select * from high_exp_and_salary;
+
+-- 15. Count the number of employees in each gender group 
+with total_employees as(
+	select gender, count(*)
+    from employees_info 
+    group by gender
+    )
+select * from total_employees ;
+
+-- 16. List all employees who have more than 5 years of experience and earn more than 60,000.
+with high_salary_and_exp as(
+	select * 
+    from employees_info 
+    where experience > 5 and salary > 60000
+    )
+select * from high_salary_and_exp;

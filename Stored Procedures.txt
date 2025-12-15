@@ -1,0 +1,21 @@
+use practice_data1;
+select * from employees_info;
+
+-- STORED PROCEDURES
+delimiter $$
+create procedure simple_select()
+begin
+	select * from employees_info where id = 4;
+end $$
+delimiter  ;
+
+call simple_select();
+
+delimiter $$
+create procedure update_table()
+begin 
+	update employees_info set experience = 10 where id = 4;
+end $$
+delimiter  ;
+
+call update_table();

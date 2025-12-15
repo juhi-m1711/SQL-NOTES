@@ -1,0 +1,71 @@
+use practice_data1;
+
+-- FUNCTIONS
+-- User defined functions
+-- 1. Default UDFs: does not pass parameters
+-- Show message
+delimiter $$
+create function showmsg()
+returns varchar(100)
+deterministic
+begin 
+	return ('Hello SQL.');
+end $$
+delimiter  ;
+
+select showmsg();
+
+-- 2. Parameterized UDFs: does pass the parameters.
+-- Addition function
+delimiter $$
+create function addition(num1 int, num2 int)
+returns int
+deterministic
+begin
+	return num1 + num2 ;
+end $$
+delimiter  ;
+
+select addition(1,9) as Sum;
+
+-- Function to check if a number is even or odd.
+delimiter $$ 
+create function IsEven(num int)
+returns varchar(100)
+deterministic
+begin
+	return 
+    if (num % 2 = 0, 'Even', 'Odd');
+end $$
+delimiter  ;
+
+select IsEven(23);
+
+-- Function to get the maximum of two numbers
+delimiter $$
+create function Max_Value(num1 int, num2 int)
+returns int 
+deterministic
+begin 
+	return 
+    if ( num1 > num2, num1, num2);
+end $$ 
+delimiter  ;
+
+select Max_Value(25,23);
+
+-- Function to concatenate two strings
+delimiter $$
+create function concatenate_string(string1 varchar(100), string2 varchar(100))
+returns varchar(100)
+deterministic
+begin 
+	return concat(string1, ' ', string2);
+end $$
+delimiter  ;
+
+select concatenate_string('Juhi','Moudekar') as Full_Name;
+
+
+
+

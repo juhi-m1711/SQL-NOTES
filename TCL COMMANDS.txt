@@ -1,0 +1,39 @@
+use practice_data1;
+select * from employees_info;
+
+-- TCL COMMANDS --
+-- Explicitly starts a transaction
+start transaction;
+
+-- AUTOCOMMIT: Automatically saves every change (default behavior).
+set autocommit = 1; -- Turn ON AUTOCOMMIT(Permanent Changes)
+
+set autocommit = 0; -- Turn OFF AUTOCOMMIT(Temporary changes)
+
+-- COMMIT: Manually saves all changes permanently.
+select * from employees_info;
+update employees_info set experience = 8 where id = 6 ;
+commit; -- Saves the above changes permanently.alter
+
+-- ROLLBACK: Undo all changes since the transaction started.
+select * from employees_info;
+delete from employees_info where id = 11 ; 
+rollback;
+
+-- SAVEPOINT: Set a checkpoint to roll back to a specific point.
+select * from employees_info;
+update employees_info set experience = 8 where id = 11 ;
+savepoint a; -- checkpoint 'a'
+
+update employees_info set experience = 8 where id = 13 ;
+savepoint b; -- checkpoint 'b'
+
+rollback to a; -- rollback query above savepoint a
+commit; -- saves above changes
+
+-- RELEASE SAVEPOINT: Delete a savepoint, but keep changes.
+select * from employees_info;
+update employees_info set experience = 8 where id = 11 ;
+savepoint a; -- checkpoint 'a'
+release savepoint a; -- deletes a savepoint
+

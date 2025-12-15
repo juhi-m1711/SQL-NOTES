@@ -1,0 +1,17 @@
+use foreign_key_data;
+show tables;
+select * from ecommerce;
+show indexes from ecommerce;
+describe ecommerce;
+
+-- INDEX : It is a data structure used to quickly access data of specific columns from the table, reducing the speed of execution.
+-- Create index
+create index search_profit on ecommerce(profit);
+
+-- Show all indexes from the table
+show indexes from ecommerce;
+
+-- Drop Index
+drop index search_profit on ecommerce;
+
+select * from ecommerce where profit >1000;

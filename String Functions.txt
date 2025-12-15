@@ -1,0 +1,60 @@
+create database string_function;
+use string_function;
+
+create table string_functions (
+	id int primary key,
+    name varchar(100),
+    contact_number bigint
+    );
+        
+insert into string_functions (id, name, contact_number) values
+	(1,  '  John Doe ',	9876543210),
+	(2,	' Alice Smith',	9123456789),
+	(3,	 '  Bob Johnson  ',	9988776655),
+	(4,	'  CharliE Brown',	8776655443),
+	(5,	'    Dave Lee',	9887766554);
+
+select * from string_functions;
+
+-- UPPER(): Converts a string to uppercase.
+-- Syntax: UPPER(string)
+select upper(name) from string_functions;
+select *, upper(name) from string_functions;
+
+-- LOWER(): Converts a string to lowercase.
+-- Syntax: LOWER(string)
+select lower(name) from string_functions;
+select *, lower(name) from string_functions;
+
+-- TRIM(): Removes leading and trailing spaces from a string.
+-- Syntax: TRIM(string)
+select trim(name) from string_functions;
+select *, trim(name) from string_functions;
+
+select upper(trim(name)) from string_functions; 
+
+-- LENGHT(): Returns the number of characters in a string.
+-- Syntax: LENGTH(string)
+select *, length(contact_number) from string_functions;
+
+-- SUBSTRING(): Extracts a part of a string (a substring) from a given position for a given length.
+-- Syntax: SUBSTRING(string, start_position, length) 
+select substring(name, 1,3) from string_functions;
+
+-- CONCAT(): Joins two or more strings together (string concatenation).
+-- Syntax: CONCAT(string1, string2, ...)
+select concat('Hello', ' ', 'SQL');
+
+select concat(name, ' ', contact_number) as Name_and_Number from string_functions;
+
+select trim(concat(name, ' ', contact_number)) as Name_and_Number from string_functions;
+
+select trim(upper((concat(name, ' ', contact_number)))) as Name_and_Number from string_functions;
+
+-- CONCAT_WS(): Concatenates strings with a separator between each value. WS = With separator
+-- Syntax: CONCAT_WS(separator, string1, string2, ...)
+select concat_ws('-', '2025', '12', '11');
+
+select id, concat_ws(', ', name, contact_number) from string_functions;
+select id, trim(concat_ws(', ', name, contact_number)) from string_functions;
+
